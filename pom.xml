@@ -10,6 +10,15 @@
   <properties>
     <tomcat.version>8.0.28</tomcat.version>
   </properties>
+  
+	<repositories>
+		<repository>
+			<id>3rdparty</id>
+			<url>https://maven.atlassian.com/3rdparty/</url>
+		</repository>
+	</repositories>
+  
+  
   <dependencies>
     <dependency>
         <groupId>org.apache.tomcat.embed</groupId>
@@ -46,6 +55,13 @@
 		<artifactId>standard</artifactId>
 		<version>1.1.2</version>
 	</dependency>
+	<!--this dependency is on 3rdparty repository-->
+	<dependency>
+		<groupId>postgresql</groupId>
+		<artifactId>postgresql</artifactId>
+		<version>9.4.1208-jdbc42-atlassian-hosted</version>
+	</dependency>
+
   </dependencies>
   <build>
     <finalName>embeddedTomcatSample</finalName>

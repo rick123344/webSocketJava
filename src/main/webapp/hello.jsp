@@ -5,12 +5,6 @@
 	<jsp:attribute name="header">
 		<!--header content here-->
 	</jsp:attribute>
-
-	<jsp:attribute name="footer">
-		<div class='container'>
-			Footer Test<br>
-		</div>
-	</jsp:attribute>
 	
 	<jsp:attribute name="script">
 		<script>
@@ -19,13 +13,28 @@
 	</jsp:attribute>
 	
 	<jsp:body>
+		
 		<div ng-controller='BASE'>
-			${pageContext.request.contextPath}<br>
 			Body Test<br>
 			${msg}<br>
-			<button ng-click="send_post()">POST</button><br>
-			<button ng-click="send_put()">PUT</button><br>
-			<button ng-click="send_delete()">DELETE</button>
+			<div>
+				<h4>From Remote Postgres Data</h4>
+					${dbdata}<br>
+			</div><br>
+			<div class='row'>
+				<div class='col-md-4'>
+					<button class='btn' ng-click="send_post()">POST</button><br>
+					{{Dpost}}
+				</div>
+				<div class='col-md-4'>
+					<button class='btn' ng-click="send_put()">PUT</button><br>
+					{{Dput}}
+				</div>
+				<div class='col-md-4'>
+					<button class='btn' ng-click="send_delete()">DELETE</button><br>
+					{{Ddelete}}
+				</div>
+			</div>
 		</div>
 	</jsp:body> 
 	
@@ -43,6 +52,10 @@
 	app.controller("BASE",baseFunc);
 	
 	function baseFunc($scope,$http,$location){
+		$scope.Dpost = "";
+		$scope.Dput = "";
+		$scope.Ddelete = "";
+		
 		$scope.send_post = function(){
 			$http({
 				method:'POST',
@@ -51,6 +64,10 @@
 				headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 			}).then(function success(msg){
 				console.log(msg);
+				$scope.Dpost = {
+					data:msg.data,
+					method:msg.config.method,
+				};
 			},function error(err){
 				console.log(err);
 			});
@@ -64,6 +81,10 @@
 				headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 			}).then(function success(msg){
 				console.log(msg);
+				$scope.Dput = {
+					data:msg.data,
+					method:msg.config.method,
+				};
 			},function error(err){
 				console.log(err);
 			});
@@ -77,6 +98,10 @@
 				headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 			}).then(function success(msg){
 				console.log(msg);
+				$scope.Ddelete = {
+					data:msg.data,
+					method:msg.config.method,
+				};
 			},function error(err){
 				console.log(err);
 			});

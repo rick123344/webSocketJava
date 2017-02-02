@@ -11,14 +11,18 @@ import javax.servlet.http.*;
         urlPatterns = {"/page1"}
     )
 public class Page1 extends HttpServlet {
-
+	Conn c = new Conn();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 		
-		String message = "<h1>Hello World</h1>";
+		
+		String msg = c.doDbRequest();
+		
+		String message = "CopyRick";
         req.setAttribute("message", message);
 		req.setAttribute("msg","Test MSG<br>");
+		req.setAttribute("dbdata",msg);
         req.getRequestDispatcher("hello.jsp").forward(req, resp);
         /*PrintWriter out = resp.getWriter();
         out.write("<html><body>");

@@ -1,0 +1,20 @@
+[INFO] Scanning for projects...
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building embeddedTomcatSample Maven Webapp 1.0-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[WARNING] The POM for net.sourceforge.schemacrawler:schemacrawler-integrations:jar:9.6 is missing, no dependency information available
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 0.299 s
+[INFO] Finished at: 2017-02-02T14:17:41+08:00
+[INFO] Final Memory: 7M/77M
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal on project embeddedTomcatSample: Could not resolve dependencies for project com.heroku.sample:embeddedTomcatSample:jar:1.0-SNAPSHOT: Failure to find net.sourceforge.schemacrawler:schemacrawler-integrations:jar:9.6 in https://repo.maven.apache.org/maven2 was cached in the local repository, resolution will not be reattempted until the update interval of central has elapsed or updates are forced -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/DependencyResolutionException

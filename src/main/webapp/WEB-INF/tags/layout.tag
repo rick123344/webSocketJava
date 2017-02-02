@@ -16,11 +16,16 @@
     </head>
     <body ng-app='Embedded'>
 		<div id='body' class='container'>
-			<p>Message: ${message}</p>
+			<div class='jumbotron'>
+				<h2>Tomcat Embedded</h2> 
+			</div>
 			<jsp:doBody/>
 		</div>
     </body>
-	<foot>
+	<foot class='navbar navbar-default navbar-fixed-bottom'>
+		<div class='container'>
+			Footer Test Message: <strong>${message}</strong>
+		</div>
 		<jsp:invoke fragment="footer"/>
 	</foot>
 	<jsp:invoke fragment="script"/>
