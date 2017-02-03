@@ -1,6 +1,11 @@
 package servlet;
 
 import java.sql.*;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
+
 
 class Conn{
 	
@@ -33,7 +38,7 @@ class Conn{
 		
 	}
 	
-	String doDbRequest(){
+	/*String doDbRequest(){
 		String str = "";
 		if(connect != null){
 			Statement statement=null;
@@ -54,6 +59,41 @@ class Conn{
 			}
 		}
 		return str;
+	}*/
+	
+	
+	List doDbRequest(){
+		//String str = "";
+		List<Object> resp = new ArrayList<Object>();
+		if(connect != null){
+			Statement statement=null;
+			try{
+				statement=connect.createStatement();
+				ResultSet result=statement.executeQuery("SELECT * FROM ticks");
+				ResultSetMetaData rsmd = result.getMetaData();
+				
+				while(result.next()){
+					Map<Object,Object> map = new HashMap<Object,Object>();
+					for(int i = 1;i<=rsmd.getColumnCount(); i++){
+						map.put(rsmd.getColumnName(i),result.getObject(rsmd.getColumnName(i)));
+					}
+					resp.add(map);
+					//str += result.getString("tick")+" ";
+				}
+				
+			}catch(SQLException e){
+				System.out.println("Error When Execute Statement");
+				e.printStackTrace();
+			}finally{
+				try{
+					statement.close();
+				}catch(Exception e){}
+			}
+		}
+		//System.out.println(resp.toString());
+		//return str;
+		return resp;
 	}
+	
 	
 }

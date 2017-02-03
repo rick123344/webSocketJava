@@ -28,5 +28,8 @@
 		</div>
 		<jsp:invoke fragment="footer"/>
 	</foot>
+	<style>
+		
+	</style>
 	<jsp:invoke fragment="script"/>
 </html>

@@ -15,24 +15,34 @@
 	<jsp:body>
 		
 		<div ng-controller='BASE'>
-			Body Test<br>
-			${msg}<br>
+			<div class='row'>
+				<div class='col-md-6'>
+					${ori}<br>
+				</div>
+				<div class='col-md-6'>
+					${note}
+				</div>
+			</div>
 			<div>
 				<h4>From Remote Postgres Data</h4>
 					${dbdata}<br>
 			</div><br>
 			<div class='row'>
-				<div class='col-md-4'>
+				<div class='col-md-3'>
 					<button class='btn' ng-click="send_post()">POST</button><br>
 					{{Dpost}}
 				</div>
-				<div class='col-md-4'>
+				<div class='col-md-3'>
 					<button class='btn' ng-click="send_put()">PUT</button><br>
 					{{Dput}}
 				</div>
-				<div class='col-md-4'>
+				<div class='col-md-3'>
 					<button class='btn' ng-click="send_delete()">DELETE</button><br>
 					{{Ddelete}}
+				</div>
+				<div class='col-md-3'>
+					<button class='btn' ng-click="send_mail()">MAIL</button><br>
+					{{Dmail}}
 				</div>
 			</div>
 		</div>
@@ -55,6 +65,7 @@
 		$scope.Dpost = "";
 		$scope.Dput = "";
 		$scope.Ddelete = "";
+		$scope.Dmail = "";
 		
 		$scope.send_post = function(){
 			$http({
@@ -106,6 +117,27 @@
 				console.log(err);
 			});
 		}
+		
+		$scope.send_mail = function(){
+			/*$http({
+				method:'POST',
+				url:$location.absUrl(),
+				data:$.param({key:"mail",key2:"Tomcat Mail",key3:"This is test"}),
+				headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+			}).then(function success(msg){
+				console.log(msg);
+				$scope.Dmail = {
+					data:msg.data,
+					method:msg.config.method,
+				};
+			},function error(err){
+				console.log(err);
+			});*/
+			
+			console.log("999");
+			
+		}
+		
 	}
 	
 	
