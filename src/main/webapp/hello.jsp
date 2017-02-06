@@ -119,7 +119,7 @@
 		}
 		
 		$scope.send_mail = function(){
-			/*$http({
+			$http({
 				method:'POST',
 				url:$location.absUrl(),
 				data:$.param({key:"mail",key2:"Tomcat Mail",key3:"This is test"}),
@@ -132,7 +132,7 @@
 				};
 			},function error(err){
 				console.log(err);
-			});*/
+			});
 			
 			console.log("999");
 			
