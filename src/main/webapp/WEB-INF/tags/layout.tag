@@ -22,12 +22,12 @@
 			<jsp:doBody/>
 		</div>
     </body>
-	<foot class='navbar navbar-default navbar-fixed-bottom'>
+	<!--<foot class='navbar navbar-default navbar-fixed-bottom'>
 		<div class='container'>
 			Footer Test Message: <strong>${message}</strong>
 		</div>
 		<jsp:invoke fragment="footer"/>
-	</foot>
+	</foot>-->
 	<style>
 		
 	</style>

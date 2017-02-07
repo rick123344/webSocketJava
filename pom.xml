@@ -51,11 +51,12 @@
         <artifactId>tomcat-jsp-api</artifactId>
         <version>${tomcat.version}</version>
     </dependency>
-		<dependency>
+	<dependency>
 		<groupId>taglibs</groupId>
 		<artifactId>standard</artifactId>
 		<version>1.1.2</version>
 	</dependency>
+	
 	<!--this dependency is on 3rdparty repository-->
 	<dependency>
 		<groupId>postgresql</groupId>
@@ -69,6 +70,13 @@
 		<artifactId>mail</artifactId>
 		<version>1.5.0-b01</version>
 	</dependency>
+
+	<!-- https://mvnrepository.com/artifact/org.apache.tomcat.embed/tomcat-embed-websocket -->
+	<!--<dependency>
+		<groupId>org.apache.tomcat.embed</groupId>
+		<artifactId>tomcat-embed-websocket</artifactId>
+		<version>9.0.0.M15</version>
+	</dependency>-->
 
   </dependencies>
   <build>

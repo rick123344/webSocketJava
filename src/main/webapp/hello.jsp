@@ -13,7 +13,9 @@
 	</jsp:attribute>
 	
 	<jsp:body>
-		
+		<div>
+			<a href='${path}/chat' target='_blank'>Chat</a>
+		</div>
 		<div ng-controller='BASE'>
 			<div class='row'>
 				<div class='col-md-6'>

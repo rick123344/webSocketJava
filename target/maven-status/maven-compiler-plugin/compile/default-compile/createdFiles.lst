@@ -1,6 +1,7 @@
 launch\Main.class
-servlet\Config.class
 servlet\Config$1.class
 servlet\Conn.class
 servlet\HelloServlet.class
 servlet\Page1.class
+servlet\Config.class
+servlet\Chat.class

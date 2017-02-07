@@ -64,10 +64,14 @@ public class Page1 extends HttpServlet {
 		.append("人們都知道有用的用處，卻不懂得無用的更大用處。<br>")
 		.toString();
 		
+		String path = req.getContextPath();
+		String basePath = req.getScheme()+"://"+req.getServerName()+":"+req.getServerPort()+path+"/";
+		
         req.setAttribute("message", message);
 		req.setAttribute("ori", ori);
 		req.setAttribute("note", note);
 		req.setAttribute("dbdata",str);
+		req.setAttribute("path",basePath);
         req.getRequestDispatcher("hello.jsp").forward(req, resp);
         /*PrintWriter out = resp.getWriter();
         out.write("<html><body>");
