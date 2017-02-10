@@ -44,7 +44,7 @@
 	</jsp:body> 
 	
 </t:layout>
-
+<script src="${pageContext.request.contextPath}/public/js/socket.io.js"></script>
 <style>
 #main{
 	height:100%;
@@ -70,6 +70,7 @@
 	font: 16px Arial, sans-serif;
 	padding:8px;
 	word-break: break-all;
+	font-weight:bold;
 }
 .blockB>span{
 	float:right;
@@ -119,7 +120,7 @@
 				return;
 			}
 			if($scope.newmsg!=""){
-				$scope.allmsg.push('<div class="blockA"><span>'+$scope.newmsg+'</span></div><div class="blockB"></div>');
+				$scope.postToServer();
 				$scope.newmsg = "";
 			}
 		}
@@ -135,6 +136,30 @@
 					out.scrollTop = out.scrollHeight;
 			},0);
 		},true);
+		
+		var ws = "wss://";
+		if(document.location.protocol == "http:"){
+			ws = "ws://";
+		}
+		var wsUri = ws + document.location.host + "/ws";
+		console.log(wsUri);
+		var ws = new WebSocket(wsUri);
+		ws.onopen = function(){
+			console.log("Connected");
+		};
+		ws.onmessage = function(message){
+			console.log(message.data);
+			$scope.allmsg.push(message.data);
+			$scope.$apply();
+		};
+		$scope.postToServer = function(){
+			ws.send($scope.newmsg);
+			$scope.newmsg = "";
+		}
+		$scope.closeConnect = function(){
+			ws.close();
+			console.log("Close Ws");
+		}
 		
 	}
 	

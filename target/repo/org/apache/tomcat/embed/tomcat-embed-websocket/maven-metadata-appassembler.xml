@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <metadata>
-  <groupId>org.apache.tomcat</groupId>
-  <artifactId>tomcat-util-scan</artifactId>
+  <groupId>org.apache.tomcat.embed</groupId>
+  <artifactId>tomcat-embed-websocket</artifactId>
   <versioning>
     <release>8.0.28</release>
     <versions>

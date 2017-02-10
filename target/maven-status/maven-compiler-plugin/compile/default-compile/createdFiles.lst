@@ -5,3 +5,4 @@ servlet\HelloServlet.class
 servlet\Page1.class
 servlet\Config.class
 servlet\Chat.class
+servlet\Websocket.class

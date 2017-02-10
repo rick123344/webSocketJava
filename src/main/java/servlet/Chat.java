@@ -12,16 +12,12 @@ import javax.servlet.*;
 import javax.servlet.annotation.*;
 import javax.servlet.http.*;
 
-import javax.mail.*;
-import javax.mail.internet.*; 
-
 @WebServlet(
         name = "Chat",
         urlPatterns = {"/chat"}
     )
 public class Chat extends HttpServlet {
 	Config config = new Config();
-	
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
