@@ -20,38 +20,35 @@ import javax.websocket.server.ServerEndpoint;
 public class Websocket {
 	
 	private static Set<Session> clients = Collections.synchronizedSet(new HashSet<Session>());
-	
+	private String comming = "One Guest Comming...";
+	private String leaving = "One Guest Leaving...";
+	private String hello = "Hello New Guess";
 	@OnOpen
     public void onSessionOpened(Session session) throws IOException {  
         System.out.println("onSessionOpened");  
 		clients.add(session);
-        for (int i = 0; i < 5; i++) {  
+		doBoardcast(comming,session);
+		doSingle(hello,session);
+        /*for (int i = 0; i < 5; i++) {  
             session.getBasicRemote().sendText(styleString("Test"+i+"...","A"));  
             System.out.println("sending...");             
             try {  
                 Thread.currentThread().sleep(500);  
             } catch (InterruptedException e) {}  
-        } 
+        } */
     } 
 	
     @OnMessage  
     public void onMessageReceived(String message, Session session) throws IOException {
 		System.out.println("Receive Msg : "+message);
-		
-		synchronized(clients){
-			for(Session client : clients){
-				if(!client.equals(session)){
-					client.getBasicRemote().sendText(styleString(message,"A"));
-				}else{
-					client.getBasicRemote().sendText(styleString(message,"B"));
-				}
-			}
-		}
+		doBoardcast(message,session);
+		doSingle(message,session);
     }
 	
     @OnClose  
     public void onClose(Session session, CloseReason closeReason){  
         System.out.println("onClose"); 
+		doBoardcast(leaving,session);
 		clients.remove(session);
     }
 	
@@ -70,5 +67,25 @@ public class Websocket {
 		return s;
 	}
 	
+	private void doBoardcast(String s,Session session){
+		try{
+			synchronized(clients){
+				for(Session client : clients){
+					if(!client.equals(session)){
+						client.getBasicRemote().sendText(styleString(s,"A"));
+					}
+				}
+			}
+		}catch(Exception e){
+			System.out.println("Boardcase Err : "+e.toString());
+		}
+	}
+	private void doSingle(String s,Session session){
+		try{
+			session.getBasicRemote().sendText(styleString(s,"B"));
+		}catch(Exception e){
+			System.out.println("Single Err : "+e.toString());
+		}
+	}
 	
 }

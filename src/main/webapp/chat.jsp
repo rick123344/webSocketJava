@@ -22,6 +22,12 @@
 							<li ng-repeat="message in allmsg track by $index" compile="message">
 						</ul>
 					</div>
+					<div class=''>
+						<div class='col-md-8'>
+							<input type='text' class='form-control' ng-model='newmsg' ng-keyup="go($event,'keycode')" />
+						</div>
+						<input type='button' class='btn' value='Send' ng-click="go($event,'btn')">
+					</div>
 				</div>
 				<div class='col-md-6'>
 					<div class='thumbnail area'>
@@ -31,10 +37,7 @@
 			</div>
 			<div class='row'>
 				<div class='col-md-6'>
-					<div class='col-md-8'>
-						<input type='text' class='form-control' ng-model='newmsg' ng-keyup="go($event,'keycode')" />
-					</div>
-					<input type='button' class='btn' value='Send' ng-click="go($event,'btn')">
+					
 				</div>
 				<div class='col-md-6'>
 					
@@ -109,10 +112,7 @@
 	}]);
 	
 	function baseFunc($scope,$http,$location,$sce,$timeout){
-		$scope.allmsg=['<div class="blockA"><span>a</span></div><div class="blockB"></div>',
-		'<div class="blockA"></div><div class="blockB"><span>b</span></div>',
-		'<div class="blockA"><span>c</span></div><div class="blockB"></div>',
-		'<div class="blockA"></div><div class="blockB"><span>d</span></div>'];
+		$scope.allmsg=[];
 		$scope.newmsg = "";
 		
 		$scope.go = function(e,type){
@@ -142,13 +142,13 @@
 			ws = "ws://";
 		}
 		var wsUri = ws + document.location.host + "/ws";
-		console.log(wsUri);
+		//console.log(wsUri);
 		var ws = new WebSocket(wsUri);
 		ws.onopen = function(){
-			console.log("Connected");
+			//console.log("Connected");
 		};
 		ws.onmessage = function(message){
-			console.log(message.data);
+			//console.log(message.data);
 			$scope.allmsg.push(message.data);
 			$scope.$apply();
 		};
@@ -158,7 +158,7 @@
 		}
 		$scope.closeConnect = function(){
 			ws.close();
-			console.log("Close Ws");
+			//console.log("Close Ws");
 		}
 		
 	}
