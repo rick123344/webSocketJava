@@ -31,7 +31,7 @@
 				</div>
 				<div class='col-md-6'>
 					<div class='thumbnail area'>
-						<a href='${path}/page1'>Page1</a>
+						<a href='${path}page1'>Page1</a>
 					</div>
 				</div>
 			</div>

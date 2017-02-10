@@ -25,7 +25,7 @@ public class Chat extends HttpServlet {
 		String path = req.getContextPath();
 		String basePath = req.getScheme()+"://"+req.getServerName()+":"+req.getServerPort()+path+"/";
 		
-		
+		System.out.println(basePath);
 		
 		resp.setCharacterEncoding("UTF-8");
 		resp.setHeader("content-type","text/html;charset=UTF-8");
