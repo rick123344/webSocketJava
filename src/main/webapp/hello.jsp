@@ -14,7 +14,7 @@
 	
 	<jsp:body>
 		<div>
-			<a href='${path}chat'>Chat</a>
+			<a href='/chat'>Chat</a><!--${path}-->
 		</div>
 		<div ng-controller='BASE'>
 			<div class='row'>
