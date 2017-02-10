@@ -48,7 +48,6 @@
 	</jsp:body> 
 	
 </t:layout>
-<script src="${pageContext.request.contextPath}/public/js/socket.io.js"></script>
 <style>
 #main{
 	height:100%;
