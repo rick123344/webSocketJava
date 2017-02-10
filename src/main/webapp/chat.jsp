@@ -8,7 +8,7 @@
 	
 	<jsp:attribute name="script">
 		<script>
-			console.log("123");
+			//console.log("123");
 		</script>
 	</jsp:attribute>
 	
@@ -32,8 +32,28 @@
 				<div class='col-md-6'>
 					<div class='thumbnail area'>
 						<a href='/page1'>Page1</a>
+						
+						<div class=''>
+							
+							<br>This test web base on <b>Tomcat Embed.</b><br>
+							Using <b>maven</b> to manage all sources.<br>
+							Annotation path (Without web.xml).<br><br>
+							
+							In "<a href='/page1'>/page1</a>" , test the UTF-8 encode.<br>
+							1. "From Remote Postgres Data" area datas, they come from Amazan cloud Database base on Postgres.<br>
+							2. "POST" button is ajax post method,<br>
+							3. "PUT" button is ajax put method,<br>
+							4. "DELETE"  button is ajax delete method,<br>
+							5. "MAIL" button is ajax post method and will send a mail to me.<br>
+							<br>
+							In "<a href='/chat'>"/chat</a> , test the socket using tomcat embed websocket.<br>
+							<br>
+							Above web using jsp template <b>view</b>, servlet <b>controller</b>, and connect <b>model</b><br>
+							Base AngularJs using, Base socket using, Base taglibs using.
+							
+						</div>
+						
 					</div>
-					
 				</div>
 			</div>
 			<div class='row'>
