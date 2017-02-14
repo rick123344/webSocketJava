@@ -47,6 +47,38 @@
 					{{Dmail}}
 				</div>
 			</div>
+			<div class="modal fade" id="sendmail" tabindex="-1" role="dialog" style="" aria-labelledby="myModalLabel">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title" id="myModalLabel">Mail Sender (to author) <b compile='sender.result'></b></h4>
+						</div>
+						<div class="modal-body">
+							<form name='myForm'>
+							<div class='row'>
+								<div class='col-md-3'>Your Name</div>
+								<div class='col-md-6'><input type='text' class='form-control' name='name' placeholder='name...' ng-model='sender.name' required></div>
+							</div>
+							<br>
+							<div class='row'>
+								<div class='col-md-3'>Your Mail</div>
+								<div class='col-md-6'><input class='form-control' name='email' type='email' placeholder='email...' ng-model='sender.mail' required></div>
+							</div>
+							<br>
+							<div class='row'>
+								<div class='col-md-3'>Content</div>
+								<div class='col-md-6'><textarea class='form-control' name='content' placeholder='content...' ng-model='sender.content' required></textarea></div>
+							</div>
+							<button type='submit' ng-click="do_mail()" class='btn pull-right'>Send</button>
+							<br><br>
+							</form>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</jsp:body> 
 	
@@ -57,12 +89,37 @@
     String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 	out.print(basePath);*/
 %>
-
+<style>
+.error{
+	font-weight:bold;
+	color:red;
+	font-size:12px;
+}
+</style>
 <script>
 
 	var app = angular.module("Embedded",[]);
 	app.controller("BASE",baseFunc);
-	
+	app.directive("compile",['$compile',function($compile){
+		return function(scope,element,attrs){
+			scope.$watch(
+				function(scope){
+					// watch the 'compile' expression for changes
+					return scope.$eval(attrs.compile);
+				},
+				function(value){
+					// when the 'compile' expression changes
+					// assign it into the current DOM
+					element.html(value);
+					// compile the new DOM and link it to the current
+					// scope.
+					// NOTE: we only compile .childNodes so that
+					// we don't get into infinite loop compiling ourselves
+					$compile(element.contents())(scope);
+				},true
+			);
+		};
+	}]);
 	function baseFunc($scope,$http,$location){
 		$scope.Dpost = "";
 		$scope.Dput = "";
@@ -121,23 +178,32 @@
 		}
 		
 		$scope.send_mail = function(){
-			$http({
-				method:'POST',
-				url:$location.absUrl(),
-				data:$.param({key:"mail",key2:"Tomcat Mail",key3:"This is test"}),
-				headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-			}).then(function success(msg){
-				console.log(msg);
-				$scope.Dmail = {
-					data:msg.data,
-					method:msg.config.method,
-				};
-			},function error(err){
-				console.log(err);
-			});
-			
-			console.log("999");
-			
+			$scope.sender = {mail:"",content:"",name:"",result:""};
+			$("#sendmail").modal('show');
+		}
+		
+		$scope.do_mail = function(){
+			//console.log($scope.myForm.$valid);
+			//console.log($scope.myForm.email.$valid);
+			if($scope.myForm.$valid){
+				if(confirm("Sure send a mail to author?")){
+					$http({
+						method:'POST',
+						url:$location.absUrl(),
+						data:$.param({key:"mail",key2:$scope.sender.mail,key3:$scope.sender.content,key4:$scope.sender.name}),
+						headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+					}).then(function success(msg){
+						console.log(msg);
+						if(msg.data == "Success"){
+							$scope.sender.result = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b style='color:blue;'>Success Sended</b>";
+						}else{
+							$scope.sender.result = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b style='color:red;'>Fail ... </b>";
+						}
+					},function error(err){
+						console.log(err);
+					});
+				}
+			}
 		}
 		
 	}

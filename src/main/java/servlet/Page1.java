@@ -96,22 +96,26 @@ public class Page1 extends HttpServlet {
 		
 		
 		if(p1.equals("mail")){
-			String subject = "Hola Test";
+			String mail = req.getParameter("key2").toString();
+			String singleContent = req.getParameter("key3").toString();
+			String name = req.getParameter("key4").toString();
+			String subject = mail +"  Send a mail";
+			
 			String content = new StringBuilder()
-			.append("孔子適楚，楚狂接輿遊其門曰：<br>")
-			.append("「鳳兮鳳兮，何如德之衰也！來世不可待，往世不可追也。<br>")
-			.append("天下有道，聖人成焉；天下無道，聖人生焉。方今之時，僅免刑焉。<br>")
-			.append("福輕乎羽，莫之知載；禍重乎地，莫之知避。已乎已乎。<br>")
-			.append("臨人以德！殆乎殆乎，畫地而趨！迷陽迷陽，無傷吾行！吾行郤曲，無傷吾足。」<br>")
-			.append("山木自寇也，膏火自煎也。<br>")
-			.append("桂可食，故伐之；漆可用，故割之。<br>")
-			.append("人皆知有用之用，而莫知無用之用也。<br>")
+			.append("<h2>"+name+" <small> send you a message</small></h2>")
+			.append("<br>")
+			.append(singleContent)
 			.toString();
+			
 			List<String> receiver = new ArrayList<String>();
 			receiver.add("rick123344@gmail.com");
 			if(send_mail(receiver,subject,content)){
 				//System.out.println("sended");
+				out.write("Success");
+			}else{
+				out.write("False");
 			}
+			return;
 		}
 		
 		out.write(msg);
