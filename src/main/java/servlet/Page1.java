@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.Properties;
+import java.util.Arrays;
 
 import java.io.*;
 
@@ -22,7 +23,7 @@ import javax.mail.internet.*;
 public class Page1 extends HttpServlet {
 	Conn c = new Conn();
 	Config config = new Config();
-	
+	Security sec = new Security();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
@@ -67,7 +68,31 @@ public class Page1 extends HttpServlet {
 		String path = req.getContextPath();
 		String basePath = req.getScheme()+"://"+req.getServerName()+":"+req.getServerPort()+path+"/";
 		
-        req.setAttribute("message", message);
+		sec.createKey();
+		/*Map m = new HashMap();
+		m.put("seed","1234567");
+		m.put("algorithm","RSA/ECB/PKCS1Padding");
+		m.put("keylength",2048);
+		m.put("path","sec/");
+		sec.setKeyRule(m);*/
+		
+		//byte[] result = sec.encrypt("abcdefg ~ Hello Rick,abcdefg,aaaaa,789456123,heiasdf<br>\n\rjjjiiieedd");
+		//System.out.println(new String(result,"UTF-8"));
+		//System.out.println(Arrays.toString(result));
+		//String enc = sec.decrypt(result);
+		//System.out.println(enc);
+		Map keys = sec.dumpKeyPair();
+		//System.out.println(keys.get("public").toString());
+		//System.out.println(keys.get("private").toString());
+		String pb = keys.get("public").toString();
+		String pv = keys.get("private").toString();
+		req.setAttribute("pb",keys.get("public").toString());
+		req.setAttribute("pv",keys.get("private").toString());
+        //req.setAttribute("encrypt",Arrays.toString(result));
+		//req.setAttribute("decrypt",enc);
+		
+		
+		req.setAttribute("message", message);
 		req.setAttribute("ori", ori);
 		req.setAttribute("note", note);
 		req.setAttribute("dbdata",str);
@@ -117,7 +142,12 @@ public class Page1 extends HttpServlet {
 			}
 			return;
 		}
-		
+		if(p1.equals("encrypt")){
+			msg = sec.doEcnry(p2);
+		}
+		if(p1.equals("decrypt")){
+			msg = sec.doDecry(p2);
+		}
 		out.write(msg);
 	}
 	

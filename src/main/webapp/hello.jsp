@@ -47,6 +47,31 @@
 					{{Dmail}}
 				</div>
 			</div>
+			<div class='row break'>
+				<br><br>
+				<div class='col-md-4'>
+					<b>Public Key:</b><br>
+					${pb}
+				</div>
+				<div class='col-md-8'>
+					<b>Private Key:</b><br>
+					${pv}
+				</div>
+			<div>
+			</div class='row break'>
+				<div class='col-md-6'>
+					<b>Encrypt :</b><br>
+					<textarea ng-model='encry' class='form-control'></textarea>
+					<input type='button' class='btn' ng-click="doEncry()" value='Encrypt'/>
+					<div>{{encry_data}}</div>
+				</div>
+				<div class='col-md-6'>
+					<b>Decrypt :</b><br>
+					<textarea ng-model='decry' class='form-control'></textarea>
+					<input type='button' class='btn' ng-click="doDecry()" value='Decrypt'/>
+					<div>{{decry_data}}</div>
+				</div>
+			</div>
 			<div class="modal fade" id="sendmail" tabindex="-1" role="dialog" style="" aria-labelledby="myModalLabel">
 				<div class="modal-dialog" role="document">
 					<div class="modal-content">
@@ -95,6 +120,9 @@
 	color:red;
 	font-size:12px;
 }
+.break{
+	word-break:break-all;
+}
 </style>
 <script>
 
@@ -125,6 +153,11 @@
 		$scope.Dput = "";
 		$scope.Ddelete = "";
 		$scope.Dmail = "";
+		
+		$scope.public = "";
+		
+		$scope.encry_data = "";
+		$scope.decry_data = "";
 		
 		$scope.send_post = function(){
 			$http({
@@ -205,6 +238,35 @@
 				}
 			}
 		}
+		
+		$scope.doEncry = function(){
+			//console.log($scope.encry);
+			$http({
+				method:'POST',
+				url:$location.absUrl(),
+				data:$.param({key:"encrypt",key2:$scope.encry}),
+				headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+			}).then(function success(msg){
+				$scope.encry_data = msg.data;
+			},function error(err){
+				console.log(err);
+			});
+		}
+		
+		$scope.doDecry = function(){
+			//console.log($scope.decry);
+			$http({
+				method:'POST',
+				url:$location.absUrl(),
+				data:$.param({key:"decrypt",key2:$scope.decry}),
+				headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+			}).then(function success(msg){
+				$scope.decry_data = msg.data;
+			},function error(err){
+				console.log(err);
+			});
+		}
+		
 		
 	}
 	
