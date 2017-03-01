@@ -47,30 +47,37 @@
 					{{Dmail}}
 				</div>
 			</div>
-			<div class='row break'>
-				<br><br>
-				<div class='col-md-4'>
-					<b>Public Key:</b><br>
-					${pb}
+			<br>
+			<div class='thumbnail'>
+				<br> <b><large>RSA Demo (put some text in Encrypt textarea, then click Encrypt button): </large></b><br>
+				<div class='row break'>
+					<div class='col-md-6'>
+						<b>Encrypt :</b><br>
+						<textarea ng-model='encry' class='form-control'></textarea>
+						<input type='button' class='btn' ng-click="doEncry()" value='Encrypt'/>
+						<div>{{encry_data}}</div>
+					</div>
+					<div class='col-md-6'>
+						<b>Decrypt :</b><br>
+						<textarea ng-model='decry' class='form-control'></textarea>
+						<input type='button' class='btn' ng-click="doDecry()" value='Decrypt'/>
+						<div>{{decry_data}}</div>
+					</div>
 				</div>
-				<div class='col-md-8'>
-					<b>Private Key:</b><br>
-					${pv}
+				<br><hr><br>
+				<br> <b><large>RSA Keys: </large></b><br>
+				<div class='row break'>
+					<br><br>
+					<div class='col-md-4'>
+						<b>Public Key:</b><br>
+						${pb}
+					</div>
+					<div class='col-md-8'>
+						<b>Private Key:</b><br>
+						${pv}
+					</div>
 				</div>
-			<div>
-			</div class='row break'>
-				<div class='col-md-6'>
-					<b>Encrypt :</b><br>
-					<textarea ng-model='encry' class='form-control'></textarea>
-					<input type='button' class='btn' ng-click="doEncry()" value='Encrypt'/>
-					<div>{{encry_data}}</div>
-				</div>
-				<div class='col-md-6'>
-					<b>Decrypt :</b><br>
-					<textarea ng-model='decry' class='form-control'></textarea>
-					<input type='button' class='btn' ng-click="doDecry()" value='Decrypt'/>
-					<div>{{decry_data}}</div>
-				</div>
+				<br>
 			</div>
 			<div class="modal fade" id="sendmail" tabindex="-1" role="dialog" style="" aria-labelledby="myModalLabel">
 				<div class="modal-dialog" role="document">
@@ -248,6 +255,7 @@
 				headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 			}).then(function success(msg){
 				$scope.encry_data = msg.data;
+				$scope.decry = "["+msg.data+"]";
 			},function error(err){
 				console.log(err);
 			});

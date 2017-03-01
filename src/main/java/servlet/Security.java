@@ -153,8 +153,12 @@ public class Security{
 	public String doDecry(String data){
 		String enc = "";
 		try{
-			data = data.replace("[","");
-			data = data.replace("]","");
+			try{
+				data = data.replace("[","");
+				data = data.replace("]","");
+			}catch(Exception e){
+				
+			}
 			String[] tmp = data.split(",");
 			//System.out.println(Arrays.toString(tmp));
 			//byte[] result = data.getBytes();//StandardCharsets.UTF_8
