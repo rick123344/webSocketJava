@@ -255,7 +255,7 @@
 				headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 			}).then(function success(msg){
 				$scope.encry_data = msg.data;
-				$scope.decry = "["+msg.data+"]";
+				$scope.decry = msg.data;
 			},function error(err){
 				console.log(err);
 			});

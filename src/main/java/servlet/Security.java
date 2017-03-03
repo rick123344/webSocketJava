@@ -30,12 +30,12 @@ import java.security.SecureRandom;
 
 public class Security{
 	private static String ALGORITHM = "RSA/ECB/PKCS1Padding";
-	private static String seed = "123456789";
+	private static String seed = "hola_rsiecekd";
 	private static int generaByteLenght = 1024;
 	private static String path = "sec/";
 	private static PublicKey public_key = null;
 	private static PrivateKey private_key = null;
-	
+	final protected static char[] hexArray = "0123456789ABCDEF".toCharArray();
 	public KeyPair createKey(){
 		KeyPair generatedKeyPair = null;
 		try{
@@ -144,7 +144,8 @@ public class Security{
 		try{
 			byte[] result = encrypt(data);
 			//r = new String(result,"ISO-8859-1");//, StandardCharsets.UTF_8
-			r = Arrays.toString(result);
+			//r = Arrays.toString(result);
+			r = byteToHex(result);
 		}catch(Exception e){
 			r = e.toString();
 		}
@@ -153,25 +154,41 @@ public class Security{
 	public String doDecry(String data){
 		String enc = "";
 		try{
-			try{
-				data = data.replace("[","");
-				data = data.replace("]","");
-			}catch(Exception e){
-				
-			}
-			String[] tmp = data.split(",");
-			//System.out.println(Arrays.toString(tmp));
-			//byte[] result = data.getBytes();//StandardCharsets.UTF_8
-			byte[] result = new byte[tmp.length];
-			int i = 0;
-			for(String t : tmp){
-				result[i] = Byte.parseByte(t);
-				i++;
-			}
+			byte[] result = hexToByte(data);
 			enc = decrypt(result);
 		}catch(Exception e){
 			enc = e.toString();
 		}
 		return enc;
 	}
+	private String byteToHex(byte[] bytes){
+		char[] hexChars = new char[bytes.length * 2];
+		for ( int j = 0; j < bytes.length; j++ ) {
+			int v = bytes[j] & 0xFF;
+			hexChars[j * 2] = hexArray[v >>> 4];
+			hexChars[j * 2 + 1] = hexArray[v & 0x0F];
+		}
+		return new String(hexChars);
+	}
+	private byte[] hexToByte(String s){
+		int len = s.length();
+		byte[] data = new byte[len / 2];
+		for (int i = 0; i < len; i += 2) {
+			data[i / 2] = (byte) ((Character.digit(s.charAt(i), 16) << 4)
+								 + Character.digit(s.charAt(i+1), 16));
+		}
+		return data;
+	}
+	/*public String web_encry(String data){
+		String r = "";
+		try{
+			byte[] result = encrypt(data);
+			//r = new String(result,"ISO-8859-1");//, StandardCharsets.UTF_8
+			r = String.valueOf(Hex.encodeHex(result));
+			//r = Arrays.toString(result);
+		}catch(Exception e){
+			r = e.toString();
+		}
+		return r;
+	}*/
 }

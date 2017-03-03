@@ -68,6 +68,7 @@
 	</jsp:body> 
 	
 </t:layout>
+<script src="${pageContext.request.contextPath}/public/js/jsencrypt.min.js"></script>
 <style>
 #main{
 	height:100%;
@@ -132,8 +133,16 @@
 	}]);
 	
 	function baseFunc($scope,$http,$location,$sce,$timeout){
+		
+		$scope.publicKey = "30819f300d06092a864886f70d010101050003818d0030818902818100aa246f9cdc641bf464cf7f7885b5819baf4574085fe9f0f9a3badaa50261c67933e1be03641be4449e35b758d67e26ed1d832558b252ffc966963170e630d1d71c4c4e26a12beb7a7285a1f71ce330343689f54ab9fd45fb79694e1a143ca433e59a6796db906d8e96be96626a240213267e78d26bb99f55fbcc76bcb5ac4a9b0203010001";
+		
 		$scope.allmsg=[];
 		$scope.newmsg = "";
+		
+		//$scope.encrypt = new JSEncrypt();
+		$scope.decrypt = new JSEncrypt();
+		$scope.decrypt.setPublicKey($scope.publicKey);
+		
 		
 		$scope.go = function(e,type){
 			if(e.keyCode!='13'&&type=='keycode'){
@@ -169,7 +178,8 @@
 		};
 		ws.onmessage = function(message){
 			//console.log(message.data);
-			$scope.allmsg.push(message.data);
+			var tmp = JSON.parse(message.data);
+			$scope.allmsg.push(tmp.msg);
 			$scope.$apply();
 		};
 		$scope.postToServer = function(){
