@@ -168,9 +168,13 @@ public class Security{
 			hexChars[j * 2] = hexArray[v >>> 4];
 			hexChars[j * 2 + 1] = hexArray[v & 0x0F];
 		}
-		return new String(hexChars);
+		String result = new String(hexChars);
+		result = Base64.getEncoder().encodeToString(result.getBytes(StandardCharsets.UTF_8));
+		return result;
 	}
 	private byte[] hexToByte(String s){
+		byte[] tmp = Base64.getDecoder().decode(s);
+		s = new String(tmp, StandardCharsets.UTF_8);
 		int len = s.length();
 		byte[] data = new byte[len / 2];
 		for (int i = 0; i < len; i += 2) {
